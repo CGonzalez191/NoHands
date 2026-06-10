@@ -193,6 +193,13 @@ class RedactorPorVoz:
 
         self.root.configure(bg=BG)
 
+        # Estilo ttk para scrollbar oscuro
+        style = ttk.Style()
+        style.theme_use("clam")
+        style.configure("Vertical.TScrollbar", background="#2d2d44",
+                        troughcolor=PANEL, bordercolor=PANEL,
+                        arrowcolor="#eaeaea", relief="flat")
+
         # ── Encabezado ──
         header = tk.Frame(self.root, bg=ACENTO, pady=12)
         header.pack(fill="x")
@@ -258,10 +265,29 @@ class RedactorPorVoz:
         )
         self.texto.pack(fill="both", expand=True, padx=8, pady=8)
 
-        # Panel lateral
-        panel = tk.Frame(main, bg=PANEL, width=self._panel_width, bd=0)
-        panel.pack(side="right", fill="y", padx=(8, 0))
-        panel.pack_propagate(False)
+        # Panel lateral con scroll
+        panel_outer = tk.Frame(main, bg=PANEL, width=self._panel_width, bd=0)
+        panel_outer.pack(side="right", fill="y", padx=(8, 0))
+        panel_outer.pack_propagate(False)
+
+        canvas = tk.Canvas(panel_outer, bg=PANEL, width=self._panel_width,
+                           highlightthickness=0, bd=0)
+        scrollbar = ttk.Scrollbar(panel_outer, orient="vertical", command=canvas.yview)
+        canvas.configure(yscrollcommand=scrollbar.set)
+        canvas.pack(side="left", fill="both", expand=True)
+        scrollbar.pack(side="right", fill="y")
+
+        panel = tk.Frame(canvas, bg=PANEL, width=self._panel_width)
+        canvas.create_window((0, 0), window=panel, anchor="nw",
+                             width=self._panel_width)
+
+        def _conf_scroll(e):
+            canvas.configure(scrollregion=canvas.bbox("all"))
+        panel.bind("<Configure>", _conf_scroll)
+        def _scroll(e):
+            canvas.yview_scroll(-1 * (e.delta // 120), "units")
+        canvas.bind("<Enter>", lambda e: canvas.bind_all("<MouseWheel>", _scroll))
+        canvas.bind("<Leave>", lambda e: canvas.unbind_all("<MouseWheel>", _scroll))
 
         # Indicador de micrófono
         self.canvas_mic = tk.Canvas(
@@ -1030,9 +1056,7 @@ class RedactorPorVoz:
                 self.root.after(0, ventana_progreso.destroy)
 
                 if texto.strip():
-                    timestamp = datetime.datetime.now().strftime("%H:%M")
-                    encabezado = f"\n\n── Texto extraído de imagen ({os.path.basename(nombre)}) [{timestamp}] ──\n"
-                    self.root.after(0, lambda t=texto, e=encabezado: self._insertar_texto_ocr(t, e))
+                    self.root.after(0, lambda t=texto: self._insertar_texto_ocr(t))
                 else:
                     self.lbl_estado.config(text="⚠️ No se encontró texto en la imagen", fg="#e94560")
 
@@ -1045,9 +1069,8 @@ class RedactorPorVoz:
 
         threading.Thread(target=tarea, daemon=True).start()
 
-    def _insertar_texto_ocr(self, texto, encabezado):
-        self.texto.insert("end", encabezado)
-        self.texto.insert("end", texto)
+    def _insertar_texto_ocr(self, texto):
+        self.texto.insert("end", "\n" + texto)
         self.texto.see("end")
         self.lbl_estado.config(text=f"✅ Texto extraído de imagen insertado", fg=VERDE)
 
