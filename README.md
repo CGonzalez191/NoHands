@@ -1,8 +1,8 @@
-# 🎙 NoHands
+# NoHands
 
 **Asistente de dictado, transcripción de audio, OCR y traducción** diseñado para personas con discapacidad o lesiones en las manos.
 
-## ✨ Funcionalidades
+##  Funcionalidades
 
 - **Dictado por voz** — online (Google Speech) u offline (Vosk)
 - **Transcripción de audio** — WAV, MP3, M4A, FLAC, OGG, AAC, WMA
@@ -11,13 +11,13 @@
 - **Comandos de voz** — "punto", "coma", "nueva línea", "guardar", "detener", etc.
 - **Multilenguaje** — 10 idiomas para dictado online
 
-## 📦 Requisitos
+##  Requisitos
 
 - **Python 3.9+**
 - **FFmpeg** (para transcripción de audio multi-formato)
 - **Conexión a internet** solo para: dictado online, traducción, y primera descarga de modelos
 
-## 🚀 Instalación paso a paso
+##  Instalación paso a paso
 
 ### 1. Clonar el repositorio
 
@@ -70,16 +70,16 @@ unzip model.zip
 python redactor_por_voz.py
 ```
 
-## 🧠 Primer uso
+##  Primer uso
 
 - **Dictado online**: seleccione "Online (Google)" y presione **"▶ Iniciar Dictado"**
 - **Dictado offline**: seleccione "Offline (Vosk)" (requiere modelo descargado)
-- **Transcribir audio**: haga clic en **"📂 Transcribir Audio…"** y seleccione un archivo
+- **Transcribir audio**: haga clic en **" Transcribir Audio…"** y seleccione un archivo
 - **OCR**: haga clic en **"📸 Extraer texto de imagen…"** y seleccione una imagen
   - La primera vez descargará automáticamente los modelos de EasyOCR (~100-200MB)
-- **Traducir**: escriba o transcriba texto, seleccione idioma y presione **"🌐 Traducir documento"**
+- **Traducir**: escriba o transcriba texto, seleccione idioma y presione **" Traducir documento"**
 
-## 🎤 Comandos de voz
+##  Comandos de voz
 
 Mientras dicta puede decir:
 
@@ -97,7 +97,7 @@ Mientras dicta puede decir:
 | "guardar" | guarda el archivo |
 | "detener" / "parar" / "stop" | pausa el dictado |
 
-## 📁 Archivos del proyecto
+##  Archivos del proyecto
 
 ```
 nohands/
@@ -108,7 +108,7 @@ nohands/
 └── README.md
 ```
 
-## 🌐 Idiomas disponibles
+##  Idiomas disponibles
 
 **Dictado online:** Español (Argentina/España), Inglés (US/UK), Portugués, Francés, Alemán, Italiano, Japonés, Chino
 
