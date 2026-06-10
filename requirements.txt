@@ -1,0 +1,7 @@
+SpeechRecognition>=3.10.0
+pyaudio>=0.2.14
+vosk>=0.3.45
+sounddevice>=0.4.6
+pydub>=0.25.1
+googletrans>=4.0.2
+easyocr>=1.7
