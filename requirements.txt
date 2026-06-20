@@ -1,0 +1,29 @@
+# Dependencias minimas
+sounddevice>=0.4
+
+# Motor offline Vosk (opcional)
+vosk>=0.3.45
+
+# Motor offline faster-whisper (opcional)
+faster-whisper>=1.0.0
+
+# Traduccion (opcional)
+googletrans>=4.0.0,<5.0.0
+
+# OCR (opcional)
+easyocr>=1.7
+
+# Exportar DOCX (opcional)
+python-docx>=1.0.0
+
+# Exportar PDF (opcional)
+fpdf2>=2.7.0
+
+# TTS feedback (opcional)
+pyttsx3>=2.90
+
+# Reconocimiento online (opcional)
+SpeechRecognition>=3.10.0
+
+# Conversion de audio (opcional)
+pydub>=0.25.1
